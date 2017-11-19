@@ -11,8 +11,6 @@ I will use Raspbian Lite version September 2017 for this guide but will add othe
 
 We need a few programs before we start.
 
-(list the few programs here, before explaining how to set them up like you did below) 
-
 Install any SQL server and a Webserver you comfy with:
 ```
 sudo apt-get update
@@ -39,7 +37,7 @@ Python 2.7.13
 ### Installing
 
 Now we dive into installing the Script. [Download](https://github.com/Juzzed/packetloss/archive/master.zip) the Latest version. 
-(maybe put all downloads at the top of the readme so they can easily be found)
+
 ```
 wget https://github.com/Juzzed/packetloss/archive/master.zip
 unzip master.zip

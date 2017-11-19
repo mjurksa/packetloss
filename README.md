@@ -74,7 +74,7 @@ tblStatus:
 | timestamp    | timestamp | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
 | packet_count | int(11)   | NO   |     | NULL              |                             |
 +--------------+-----------+------+-----+-------------------+-----------------------------+
-
+```
 or
 ```
 mysql -u root 

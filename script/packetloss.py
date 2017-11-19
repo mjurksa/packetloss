@@ -4,6 +4,9 @@ import time                                # For for loop to time it
 import subprocess, platform
 import datetime
 import MySQLdb
+import ConfigParser
+
+config_dir = "/opt/packetloss/conf.ini"
 
 def pingOk(sHost):
     try:
@@ -14,27 +17,30 @@ def pingOk(sHost):
 
     return 0 #ping is ok
 
-conn = MySQLdb.connect(host= "localhost",user="root",db="packetloss")
+Config = ConfigParser.ConfigParser()
+Config.read(config_dir)
+
+conn = MySQLdb.connect(host= Config.get('database','db_host'),user= Config.get('database','db_python_user'),db= Config.get('database','db_name'))
 command = conn.cursor()
 
-t_end = time.time() + 58 #in Seconds
+t_end = time.time() + int(Config.get('script','time'))
 
-ping_total = 0
+pings_total = 0
 pings_lost = 0
 
 while time.time() < t_end:
     try:
-        ping_code = pingOk("8.8.8.8")
-        if ping_code == 1:
+        ping_status = pingOk(str(Config.get('script','ping_server')))
+        if ping_status == 1:
             pings_lost = pings_lost + 1
-        ping_total = ping_total + 1
+        pings_total = pings_total + 1
 
     except Exception as e:
         conn.rollback()
 
-    time.sleep(1)
+    time.sleep(int(Config.get('script','sleep')))
 
-command.execute("""INSERT INTO tblPacket VALUES (%s,%s,%s,%s)""",(0,0,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),ping_total))
+command.execute("""INSERT INTO tblPacket VALUES (%s,%s,%s,%s)""",(0,0,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),pings_total))
 command.execute("""INSERT INTO tblPacket VALUES (%s,%s,%s,%s)""",(0,1,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),pings_lost))
 conn.commit()
 

@@ -11,8 +11,9 @@
     <canvas id="myChart" style="display: block;"></canvas>
   </div>
   <?php
+
         $ini = parse_ini_file('/opt/packetloss/conf.ini');
-        $scala = $ini['scala']; //in minuten
+        $scala = $ini['scala'];
         $results_ok = array ();
         $results_404 = array ();
         $times = array ();
@@ -44,7 +45,7 @@
         if (!$conn) {
             die('Could not connect: ' . mysqli_error($conn));
         }
-        mysqli_select_db($conn,$ini['db_name']);
+        mysqli_select_db($conn,"packetloss");
         date_default_timezone_set("Europe/Berlin");
 
 

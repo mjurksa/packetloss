@@ -1,6 +1,7 @@
 <html>
 
 <head>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 </head>
@@ -10,15 +11,16 @@
     <canvas id="myChart" style="display: block;"></canvas>
   </div>
   <?php
-        $scala = 20; //in minuten
+        $ini = parse_ini_file('/opt/packetloss/conf.ini');
+        $scala = $ini['scala']; //in minuten
         $results_ok = array ();
         $results_404 = array ();
         $times = array ();
         $default = 1; //tage in tagen
         if(isset($_GET["days"]))
         {
-          $yolo = $_GET["days"];
-          if(preg_match('/[a-zA-Z]+/', $yolo))
+          $GET = $_GET["days"];
+          if(preg_match('/[a-zA-Z]+/', $GET))
           {
             $days = $default;
           }
@@ -38,11 +40,11 @@
 
 
         //MYSQL connection
-        $conn = mysqli_connect('localhost','php2','PhP13378908991');
+        $conn = mysqli_connect($ini['db_host'],$ini['db_user'],$ini['db_password']);
         if (!$conn) {
             die('Could not connect: ' . mysqli_error($conn));
         }
-        mysqli_select_db($conn,"packetloss");
+        mysqli_select_db($conn,$ini['db_name']);
         date_default_timezone_set("Europe/Berlin");
 
 
@@ -92,7 +94,7 @@
         data: {
           labels: <?php echo json_encode($times);?>,
           datasets: [{
-              label: 'Total Pings',
+              label: 'Total pings',
               data: <?php echo json_encode($results_ok);?>,
               backgroundColor: 'rgba(140, 212, 168, 0.2)',
               borderColor: 'rgba(140, 212, 168, 1)',
@@ -142,17 +144,25 @@
                             var h = parseInt(time[1], 10);
                             var m = parseInt(time[2], 10) || 0;
                             var p;
-                            if (m < 60)
+                            var extrah = 0;
+                            timeshift = <?php echo($scala) ?> - 1;
+                            shiftedtime = (m + timeshift);
+                            if(shiftedtime >= 60 )
                             {
-                              k = 60 - m;
-                              p = ("00" + parseInt(60 - k))
+                              extrah = 1;
+                              p = (m + timeshift) - 60;
                             }
                             else {
-                              p = ("00" + parseInt(m - 60))
+                              p = (m + timeshift);
                             }
-                            var k = ("00" + parseInt(m))
-                            var from = h+":"+ p.substr(-2,2);
-                            var to = h+":"+ k.substr(-2,2);
+
+                            m = "00" + m;
+                            p = "00" + p;
+
+                            var from = h+":"+ String(m).substr(-2,2);
+                            var to = (h + extrah)+":"+ String(p).substr(-2,2) ;
+
+
                             return "from "+from+" - to "+to;
                         },
               labelTextColor: function(tooltipItem, chart) {
@@ -165,7 +175,7 @@
               display: true,
               ticks: {
                 beginAtZero: true,
-                suggestedMax: 3600
+                suggestedMax: 1400,
               }
             }],
             xAxes: [{

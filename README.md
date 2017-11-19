@@ -1,15 +1,17 @@
 # packetloss
 
-A HTML/PHP/Python application to help tracking the Packetloss by pinging a server
+A HTML/PHP/Python application to help track Packetloss by pinging a server
 
 ### Notes
 
-For this Programm to work you need any Linux OS. 
-I will use Raspbian Lite version September 2017 for this guide but will add other OS examples later when i tested it. So the guide will vary depending on your OS. 
+This program works for any version of Linux OS. 
+I will use Raspbian Lite version September 2017 for this guide but will add other OS examples after testing. The guide will be different depending on your OS. 
 
 ### Prerequisites
 
-First we need a few programms befor we start. This should be easy to do as this is very basic. 
+We need a few programs before we start.
+
+(list the few programs here, before explaining how to set them up like you did below) 
 
 Install any SQL server and a Webserver you comfy with:
 ```
@@ -27,7 +29,7 @@ Install PHP and modules. Preferably PHP7
 sudo apt-get install php php-myql
 ```
 
-Install Python2. This may not be necessary because most Linux distributions come with Python2 preinstalled. Make sure you are using Python 2. You can Check.
+Install Python2. This may not be necessary because most Linux distributions come with Python2 preinstalled. Make sure you are using Python 2. You can Check by using the following command:
 ```
 python --version
 
@@ -36,29 +38,30 @@ Python 2.7.13
 
 ### Installing
 
-Now we dive into Installing the Script. [Download](https://github.com/Juzzed/packetloss/archive/master.zip) the Latest version. 
+Now we dive into installing the Script. [Download](https://github.com/Juzzed/packetloss/archive/master.zip) the Latest version. 
+(maybe put all downloads at the top of the readme so they can easily be found)
 ```
 wget https://github.com/Juzzed/packetloss/archive/master.zip
 unzip master.zip
 cd packetloss-master
 ```
 
-Move the Script and the config somewhere where it can be executed by Cronjob later on
+Move the Script and config somewhere they can be executed by Cronjob later.
 ```
 mkdir /opt/packetloss/
 mv script/* /opt/packetloss/
 ```
-Change the config file if you need.
+Change the config file if needed.
 
-Move php script to the corresponding HTML directory.I will access the page like this http://xxx.xxx.xxx.xxx/packetloss/ . Thats why i will create a subdirectory
+Move php script to the corresponding HTML directory. I will access the page like this http://xxx.xxx.xxx.xxx/packetloss/ . Thats why a subdirectory is needed.
 ```
 mkdir /var/www/html/packetloss
 mv html/index.php /var/www/html/packetloss/
 ```
 
-You need to change the directory for the config in the php script if you have a diffrent location for the script than /opt/packetloss/config.ini
+You need to change the directory for the config in the php script if you have a different location for the script than /opt/packetloss/config.ini
 
-Database. Create Tables as following. Or use dump script bellow.
+Database. Create Tables as following or use dump script below.
 ```
 tblStatus:
 +--------------+-------------+------+-----+---------+-------+
@@ -108,9 +111,9 @@ Done!
 ## Running the tests
 
 
-To test whether the Script works or not you can Unplug the Internet Connection. 
+To test whether the script works or not you can unplug the Internet Connection. 
 
-You can start the Python script manualy and look if you run into some kind of problems:
+You can start the Python script manually and look if you run into any problems:
 ```
 python /opt/packetloss/packetloss.py
 ```

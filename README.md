@@ -43,17 +43,20 @@ unzip master.zip
 cd packetloss-master
 ```
 
-Move the Script somewhere where it can be executed by Cronjob later on
+Move the Script and the config somewhere where it can be executed by Cronjob later on
 ```
 mkdir /opt/packetloss/
-mv script/packetloss.py /opt/packetloss/
+mv script/* /opt/packetloss/
 ```
+Change the config file if you need.
 
 Move php script to the corresponding HTML directory.I will access the page like this http://xxx.xxx.xxx.xxx/packetloss/ . Thats why i will create a subdirectory
 ```
 mkdir /var/www/html/packetloss
 mv html/index.php /var/www/html/packetloss/
 ```
+
+You need to change the directory for the config in the php script if you have a diffrent location for the script than /opt/packetloss/config.ini
 
 Database. Create Tables as following. Or use dump script bellow.
 ```
@@ -81,6 +84,13 @@ mysql -u root
 create database packetloss;
 exit
 mysql -u root packetloss < database.sql
+```
+
+Create a user:
+
+```
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON packetloss . * TO 'user'@'localhost';
 ```
 
 Create cronjob for the Script

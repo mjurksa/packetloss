@@ -11,6 +11,11 @@ I will use Raspbian Lite version September 2017 for this guide but will add othe
 
 We need a few programs before we start.
 
+###### SQL Server
+###### Web Server
+###### PHP and a PHP module for your SQL server
+###### Python2 (should be installed)
+
 Install any SQL server and a Webserver you comfy with:
 ```
 sudo apt-get update
@@ -57,7 +62,7 @@ mkdir /var/www/html/packetloss
 mv html/index.php /var/www/html/packetloss/
 ```
 
-You need to change the directory for the config in the php script if you have a different location for the script than /opt/packetloss/config.ini
+You need to change the directory for the config in the php and python script if you have a different location for the scripts than /opt/packetloss/[scripts]
 
 Database. Create Tables as following or use dump script below.
 ```

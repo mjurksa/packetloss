@@ -11,11 +11,6 @@ I will use Raspbian Lite version September 2017 for this guide but will add othe
 
 We need a few programs before we start.
 
-##### SQL Server
-##### Any webserver
-##### PHP and PHP-Mysql (or any PHP module for the Database of your choise)
-##### Python2 (Should be preinstalled)
-
 Install any SQL server and a Webserver you comfy with:
 ```
 sudo apt-get update
@@ -42,6 +37,7 @@ Python 2.7.13
 ### Installing
 
 Now we dive into installing the Script. [Download](https://github.com/Juzzed/packetloss/archive/master.zip) the Latest version. 
+
 ```
 wget https://github.com/Juzzed/packetloss/archive/master.zip
 unzip master.zip

@@ -92,14 +92,14 @@
         data: {
           labels: <?php echo json_encode($times);?>,
           datasets: [{
-              label: 'Ping OK',
+              label: 'Total Pings',
               data: <?php echo json_encode($results_ok);?>,
               backgroundColor: 'rgba(140, 212, 168, 0.2)',
               borderColor: 'rgba(140, 212, 168, 1)',
               borderWidth: 3
             },
             {
-              label: 'Ping not OK',
+              label: 'Packets lost',
               data: <?php echo json_encode($results_404);?>,
               backgroundColor:'rgba(244, 57, 57, 0.2)',
               borderColor: 'rgba(244, 57, 57, 1)',

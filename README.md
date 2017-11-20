@@ -1,3 +1,5 @@
+![Alt text](https://github.com/Juzzed/packetloss/blob/master/screenshots/Overview.png?raw=true "Optional title")
+
 # packetloss
 
 A HTML/PHP/Python application to help track Packetloss by pinging a server
